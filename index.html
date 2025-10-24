@@ -1,0 +1,1149 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Tech Insights - The Future of Innovation (Pure HTML/CSS)</title>
+        <!-- Load Inter Font -->
+        <link
+            href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap"
+            rel="stylesheet"
+        />
+
+        <style>
+            /* --- CSS Global Variables & Setup --- */
+            :root {
+                --primary-color: #4f46e5; /* Indigo 600 */
+                --secondary-color: #e0e7ff; /* Indigo 100 */
+                --background-color: #f9fafb; /* Gray 50 */
+                --card-bg: #ffffff;
+                --dark-text: #1f2937; /* Gray 800 */
+                --light-text: #4b5563; /* Gray 600 */
+            }
+
+            /* --- Base Styles --- */
+            body {
+                font-family: "Inter", sans-serif;
+                background-color: var(--background-color);
+                color: var(--dark-text);
+                min-height: 100vh;
+                line-height: 1.6;
+                margin: 0;
+                padding: 0;
+            }
+
+            a {
+                color: var(--primary-color);
+                text-decoration: none;
+                transition: color 0.15s;
+            }
+
+            a:hover {
+                color: #3730a3; /* Darker indigo for hover */
+            }
+
+            /* --- Utility Classes --- */
+            .container {
+                max-width: 1280px;
+                margin-left: auto;
+                margin-right: auto;
+                padding-left: 1rem;
+                padding-right: 1rem;
+            }
+
+            .shadow-md {
+                box-shadow:
+                    0 4px 6px -1px rgba(0, 0, 0, 0.1),
+                    0 2px 4px -2px rgba(0, 0, 0, 0.1);
+            }
+            .shadow-lg {
+                box-shadow:
+                    0 10px 15px -3px rgba(0, 0, 0, 0.1),
+                    0 4px 6px -4px rgba(0, 0, 0, 0.1);
+            }
+            .rounded-xl {
+                border-radius: 0.75rem;
+            }
+            .flex-center {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
+
+            /* --- Header & Navigation --- */
+            header {
+                background-color: var(--card-bg);
+                position: sticky;
+                top: 0;
+                z-index: 10;
+            }
+
+            header .container {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                padding-top: 1rem;
+                padding-bottom: 1rem;
+            }
+
+            .logo {
+                font-size: 1.875rem;
+                font-weight: 800;
+                color: var(--primary-color);
+                letter-spacing: -0.025em;
+            }
+
+            .logo span {
+                color: var(--dark-text);
+            }
+
+            .nav-link {
+                color: var(--light-text);
+                font-weight: 500;
+                margin-left: 1.5rem;
+            }
+
+            .nav-link:hover {
+                color: var(--primary-color);
+            }
+
+            /* Hide mobile menu button by default on larger screens */
+            .menu-button {
+                display: none;
+            }
+            .desktop-nav {
+                display: flex;
+            }
+
+            /* --- Main Layout Grid (Desktop) --- */
+            .main-grid {
+                display: grid;
+                gap: 2.5rem; /* gap-10 */
+            }
+
+            .posts-container {
+                grid-column: span 2 / span 2; /* lg:col-span-2 */
+                display: flex;
+                flex-direction: column;
+                gap: 2rem;
+            }
+
+            .sidebar {
+                grid-column: span 1 / span 1; /* lg:col-span-1 */
+                display: flex;
+                flex-direction: column;
+                gap: 2rem;
+            }
+
+            /* --- Featured Post (Hero) --- */
+            .hero-section {
+                margin-bottom: 3rem;
+                background-color: var(--card-bg);
+                border: 1px solid var(--secondary-color);
+                overflow: hidden;
+            }
+
+            .hero-content {
+                padding: 2.5rem;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+            }
+
+            .hero-content h1 {
+                font-size: 2.25rem;
+                font-weight: 800;
+                margin-bottom: 1rem;
+                line-height: 1.25;
+            }
+
+            .hero-image {
+                overflow: hidden;
+            }
+
+            .hero-image img {
+                width: 100%;
+                height: 400px;
+                object-fit: cover;
+                transition: transform 0.5s;
+            }
+
+            .hero-image img:hover {
+                transform: scale(1.02);
+            }
+
+            .read-more-button {
+                display: inline-block;
+                background-color: var(--primary-color);
+                color: white;
+                font-weight: 600;
+                padding: 0.75rem 1.5rem;
+                border-radius: 0.5rem;
+                margin-top: 2rem;
+                align-self: flex-start;
+                box-shadow: 0 4px 6px -1px rgba(79, 70, 229, 0.5); /* shadow-md with color */
+                transition: background-color 0.3s;
+            }
+
+            .read-more-button:hover {
+                background-color: #3730a3;
+            }
+
+            /* --- Blog Post Card --- */
+            .post-card {
+                background-color: var(--card-bg);
+                padding: 1.5rem;
+                border-radius: 0.75rem;
+                border: 1px solid #f3f4f6;
+                transition: box-shadow 0.3s;
+            }
+
+            .post-card:hover {
+                box-shadow:
+                    0 20px 25px -5px rgba(0, 0, 0, 0.1),
+                    0 8px 10px -6px rgba(0, 0, 0, 0.1); /* hover:shadow-xl */
+            }
+
+            .post-content-wrapper {
+                display: flex;
+                gap: 1.5rem;
+            }
+
+            .post-image-wrapper {
+                flex-shrink: 0;
+                width: 33.333333%; /* md:w-1/3 */
+            }
+
+            .post-image-wrapper img {
+                width: 100%;
+                height: 150px;
+                object-fit: cover;
+                border-radius: 0.5rem;
+            }
+
+            .post-text-content {
+                width: 66.666667%; /* md:w-2/3 */
+            }
+
+            .post-text-content h2 {
+                font-size: 1.5rem;
+                font-weight: 700;
+                margin-bottom: 0.75rem;
+                color: var(--dark-text);
+            }
+
+            .post-text-content p {
+                color: var(--light-text);
+                /* Simple way to simulate line-clamp-3 in pure CSS */
+                overflow: hidden;
+                display: -webkit-box;
+                -webkit-line-clamp: 3;
+                -webkit-box-orient: vertical;
+                margin-bottom: 1rem;
+            }
+
+            /* --- Sidebar Widgets --- */
+            .widget {
+                background-color: var(--card-bg);
+                padding: 1.5rem;
+                border-radius: 0.75rem;
+                border: 1px solid #f3f4f6;
+                box-shadow:
+                    0 1px 3px 0 rgba(0, 0, 0, 0.1),
+                    0 1px 2px 0 rgba(0, 0, 0, 0.06);
+            }
+
+            .widget h3 {
+                font-size: 1.25rem;
+                font-weight: 700;
+                margin-bottom: 1rem;
+                border-bottom: 1px solid #e5e7eb;
+                padding-bottom: 0.5rem;
+            }
+
+            .category-list li {
+                margin-bottom: 0.5rem;
+            }
+
+            .category-link {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                font-weight: 500;
+                color: var(--light-text);
+            }
+
+            .category-count {
+                background-color: var(--secondary-color);
+                color: var(--primary-color);
+                font-size: 0.75rem;
+                font-weight: 600;
+                padding: 0.125rem 0.5rem;
+                border-radius: 9999px;
+            }
+
+            .newsletter-widget {
+                background-color: var(--primary-color);
+                color: white;
+                text-align: center;
+            }
+
+            .newsletter-widget input[type="email"] {
+                width: 100%;
+                padding: 0.75rem;
+                border-radius: 0.5rem;
+                color: var(--dark-text);
+                border: none;
+                margin-bottom: 0.75rem;
+            }
+
+            .newsletter-button {
+                width: 100%;
+                background-color: white;
+                color: var(--primary-color);
+                font-weight: 700;
+                padding: 0.75rem;
+                border-radius: 0.5rem;
+                border: none;
+                cursor: pointer;
+                transition: background-color 0.3s;
+            }
+
+            .newsletter-button:hover {
+                background-color: var(--secondary-color);
+            }
+
+            .author-avatar {
+                width: 80px;
+                height: 80px;
+                border-radius: 50%;
+                margin: 0 auto 1rem;
+                border: 4px solid rgba(79, 70, 229, 0.2);
+            }
+
+            /* --- Footer --- */
+            footer {
+                background-color: #1f2937; /* Dark Gray */
+                color: white;
+                margin-top: 3rem;
+            }
+
+            footer .container {
+                display: flex;
+                flex-direction: column;
+                padding-top: 2rem;
+                padding-bottom: 2.5rem;
+                text-align: center;
+            }
+
+            footer .links a {
+                color: #9ca3af; /* Gray 400 */
+                margin: 0 0.75rem;
+                font-size: 0.875rem;
+            }
+
+            /* --- Scroll to Top Button --- */
+            .scroll-to-top {
+                position: fixed;
+                bottom: 1.5rem;
+                right: 1.5rem;
+                background-color: var(--primary-color);
+                color: white;
+                padding: 0.75rem;
+                border-radius: 50%;
+                border: none;
+                cursor: pointer;
+                box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.2);
+                transition: background-color 0.3s;
+            }
+
+            .scroll-to-top:hover {
+                background-color: #3730a3;
+            }
+
+            /* --- Article View Styles --- */
+            .article-view {
+                display: none; /* Hidden by default */
+                padding-top: 2rem;
+                padding-bottom: 4rem;
+            }
+
+            .article-view h1 {
+                font-size: 3rem;
+                font-weight: 800;
+                margin-bottom: 1rem;
+                line-height: 1.1;
+            }
+
+            .article-meta {
+                color: var(--light-text);
+                font-size: 0.875rem;
+                margin-bottom: 2rem;
+            }
+
+            .article-body p {
+                margin-bottom: 1.5rem;
+                font-size: 1.125rem;
+                line-height: 1.75;
+            }
+
+            .article-body h2 {
+                font-size: 2rem;
+                font-weight: 700;
+                margin-top: 2.5rem;
+                margin-bottom: 1rem;
+                border-left: 4px solid var(--primary-color);
+                padding-left: 0.75rem;
+            }
+
+            .article-body img {
+                max-width: 100%;
+                height: auto;
+                border-radius: 0.75rem;
+                margin-bottom: 2rem;
+                box-shadow: var(--shadow-md);
+            }
+
+            .back-button {
+                display: inline-block;
+                margin-bottom: 1.5rem;
+                color: var(--primary-color);
+                font-weight: 600;
+            }
+
+            /* --- Media Queries (Responsiveness) --- */
+            @media (min-width: 768px) {
+                /* md breakpoint */
+                .hero-section {
+                    display: flex;
+                }
+                .hero-content {
+                    width: 50%;
+                }
+                .hero-image {
+                    width: 50%;
+                }
+
+                .post-content-wrapper {
+                    flex-direction: row;
+                }
+                .post-image-wrapper {
+                    width: 33.333333%;
+                }
+                .post-text-content {
+                    width: 66.666667%;
+                }
+
+                footer .container {
+                    flex-direction: row;
+                    justify-content: space-between;
+                    align-items: center;
+                    text-align: left;
+                }
+
+                footer .links {
+                    margin-top: 0;
+                }
+            }
+
+            @media (min-width: 1024px) {
+                /* lg breakpoint */
+                .main-grid {
+                    grid-template-columns: 2fr 1fr;
+                }
+                .posts-container {
+                    grid-column: auto;
+                }
+                .sidebar {
+                    grid-column: auto;
+                }
+                .menu-button {
+                    display: none;
+                }
+                .desktop-nav {
+                    display: flex;
+                }
+            }
+
+            @media (max-width: 767px) {
+                /* Mobile styles */
+                .main-grid {
+                    grid-template-columns: 1fr;
+                }
+                .posts-container,
+                .sidebar {
+                    grid-column: span 1 / span 1;
+                }
+                .hero-section {
+                    flex-direction: column;
+                }
+                .hero-content {
+                    width: 100%;
+                    padding: 1.5rem;
+                }
+                .hero-image {
+                    width: 100%;
+                }
+                .hero-image img {
+                    height: 250px;
+                }
+                .desktop-nav {
+                    display: none;
+                }
+                .menu-button {
+                    display: block;
+                }
+                .post-content-wrapper {
+                    flex-direction: column;
+                }
+                .post-image-wrapper {
+                    width: 100%;
+                }
+                .post-text-content {
+                    width: 100%;
+                }
+                .hero-content h1 {
+                    font-size: 2rem;
+                }
+                .hero-content p {
+                    font-size: 1rem;
+                }
+            }
+        </style>
+    </head>
+    <body onload="showView('main-view')">
+        <!-- Header & Navigation -->
+        <header class="shadow-md">
+            <div class="container">
+                <a
+                    href="#"
+                    class="logo"
+                    onclick="showView('main-view'); return false;"
+                >
+                    Tech<span>Insights</span>
+                </a>
+                <nav class="desktop-nav">
+                    <a
+                        href="#"
+                        class="nav-link"
+                        onclick="showView('main-view'); return false;"
+                        >Home</a
+                    >
+                    <a
+                        href="#posts"
+                        class="nav-link"
+                        onclick="smoothScrollTo('posts'); return false;"
+                        >Blog Posts</a
+                    >
+                    <a
+                        href="#categories"
+                        class="nav-link"
+                        onclick="smoothScrollTo('categories'); return false;"
+                        >Categories</a
+                    >
+                    <a
+                        href="#about"
+                        class="nav-link"
+                        onclick="smoothScrollTo('about-widget'); return false;"
+                        >About</a
+                    >
+                </nav>
+                <button class="menu-button">
+                    <!-- Icon for mobile menu -->
+                    <svg
+                        class="w-6 h-6"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                        xmlns="http://www.w3.org/2000/svg"
+                        style="width: 1.5rem; height: 1.5rem"
+                    >
+                        <path
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            stroke-width="2"
+                            d="M4 6h16M4 12h16m-7 6h7"
+                        ></path>
+                    </svg>
+                </button>
+            </div>
+        </header>
+
+        <!-- Main Content View -->
+        <main id="main-view" class="container">
+            <!-- Hero Section / Featured Post -->
+            <section class="hero-section rounded-xl shadow-lg">
+                <div class="hero-content">
+                    <span
+                        style="
+                            font-size: 0.75rem;
+                            font-weight: 600;
+                            text-transform: uppercase;
+                            color: var(--primary-color);
+                            margin-bottom: 0.5rem;
+                        "
+                        >Featured Tech</span
+                    >
+                    <h1>The Rise of Quantum Computing in 2025</h1>
+                    <p
+                        style="
+                            font-size: 1.125rem;
+                            color: var(--light-text);
+                            margin-bottom: 1.5rem;
+                        "
+                    >
+                        Explore how 'qubits' are moving from theoretical physics
+                        to practical application, and why every major tech firm
+                        is racing to achieve quantum supremacy.
+                    </p>
+                    <div
+                        style="
+                            display: flex;
+                            align-items: center;
+                            gap: 0.75rem;
+                            font-size: 0.875rem;
+                            color: #6b7280;
+                        "
+                    >
+                        <span>By Alex Chen</span>
+                        <span>&bull;</span>
+                        <span>October 24, 2025</span>
+                    </div>
+                    <a
+                        href="#"
+                        class="read-more-button"
+                        onclick="showView('article-view'); return false;"
+                    >
+                        Read the Full Article &rarr;
+                    </a>
+                </div>
+                <div class="hero-image">
+                    <!-- Placeholder Image (Responsive) -->
+                    <img
+                        src="https://placehold.co/800x600/4F46E5/ffffff?text=Quantum+Computing+Art"
+                        alt="Abstract representation of quantum computing"
+                        onerror="this.onerror=null; this.src='https://placehold.co/800x600/4F46E5/ffffff?text=Image+Unavailable';"
+                    />
+                </div>
+            </section>
+
+            <!-- Blog Posts & Sidebar Grid -->
+            <div id="posts" class="main-grid">
+                <!-- Primary Blog Posts -->
+                <div class="posts-container">
+                    <!-- Post Card 1: AI & Ethics -->
+                    <article class="post-card">
+                        <div class="post-content-wrapper">
+                            <div class="post-image-wrapper">
+                                <img
+                                    src="https://placehold.co/400x250/374151/ffffff?text=AI+Ethics"
+                                    alt="Illustration of AI ethics and responsibility"
+                                />
+                            </div>
+                            <div class="post-text-content">
+                                <a
+                                    href="#"
+                                    style="
+                                        font-size: 0.875rem;
+                                        font-weight: 600;
+                                        text-transform: uppercase;
+                                        color: #6366f1;
+                                        margin-bottom: 0.5rem;
+                                        display: inline-block;
+                                    "
+                                >
+                                    Artificial Intelligence
+                                </a>
+                                <h2>
+                                    Navigating the Ethical Maze of Generative AI
+                                </h2>
+                                <p>
+                                    As generative models become ubiquitous, the
+                                    questions surrounding intellectual property,
+                                    deepfakes, and societal bias are more
+                                    pressing than ever. We dive into the
+                                    necessary guardrails.
+                                </p>
+                                <div
+                                    style="font-size: 0.875rem; color: #6b7280"
+                                >
+                                    <span>Sarah Kim</span>
+                                    <span style="margin: 0 0.5rem">&bull;</span>
+                                    <span>October 19, 2025</span>
+                                </div>
+                            </div>
+                        </div>
+                    </article>
+
+                    <!-- Post Card 2: Cybersecurity -->
+                    <article class="post-card">
+                        <div class="post-content-wrapper">
+                            <div class="post-image-wrapper">
+                                <img
+                                    src="https://placehold.co/400x250/10B981/ffffff?text=Cybersecurity+Trends"
+                                    alt="Security lock icon over digital data stream"
+                                />
+                            </div>
+                            <div class="post-text-content">
+                                <a
+                                    href="#"
+                                    style="
+                                        font-size: 0.875rem;
+                                        font-weight: 600;
+                                        text-transform: uppercase;
+                                        color: #059669;
+                                        margin-bottom: 0.5rem;
+                                        display: inline-block;
+                                    "
+                                >
+                                    Cybersecurity
+                                </a>
+                                <h2>
+                                    Zero Trust Architecture: The New Standard
+                                    for Enterprise Security
+                                </h2>
+                                <p>
+                                    Trust is a vulnerability. Learn how
+                                    implementing a Zero Trust model is
+                                    redefining network security and protecting
+                                    businesses against sophisticated modern
+                                    threats.
+                                </p>
+                                <div
+                                    style="font-size: 0.875rem; color: #6b7280"
+                                >
+                                    <span>Michael Lee</span>
+                                    <span style="margin: 0 0.5rem">&bull;</span>
+                                    <span>October 10, 2025</span>
+                                </div>
+                            </div>
+                        </div>
+                    </article>
+
+                    <!-- Post Card 3: Web Development -->
+                    <article class="post-card">
+                        <div class="post-content-wrapper">
+                            <div class="post-image-wrapper">
+                                <img
+                                    src="https://placehold.co/400x250/F59E0B/ffffff?text=Web+3.0"
+                                    alt="Abstract illustration of interconnected decentralized networks"
+                                />
+                            </div>
+                            <div class="post-text-content">
+                                <a
+                                    href="#"
+                                    style="
+                                        font-size: 0.875rem;
+                                        font-weight: 600;
+                                        text-transform: uppercase;
+                                        color: #d97706;
+                                        margin-bottom: 0.5rem;
+                                        display: inline-block;
+                                    "
+                                >
+                                    Web & Dev
+                                </a>
+                                <h2>
+                                    Beyond the Browser: The Evolution of Web
+                                    Development with AI Tools
+                                </h2>
+                                <p>
+                                    From code generation to automatic testing,
+                                    AI is fundamentally changing the developer
+                                    workflow. We review the top tools boosting
+                                    productivity today.
+                                </p>
+                                <div
+                                    style="font-size: 0.875rem; color: #6b7280"
+                                >
+                                    <span>Juan P.</span>
+                                    <span style="margin: 0 0.5rem">&bull;</span>
+                                    <span>September 28, 2025</span>
+                                </div>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+
+                <!-- Sidebar -->
+                <aside class="sidebar">
+                    <!-- Categories Widget -->
+                    <div id="categories" class="widget rounded-xl shadow-md">
+                        <h3>Categories</h3>
+                        <ul
+                            class="category-list"
+                            style="list-style: none; padding: 0"
+                        >
+                            <li>
+                                <a href="#" class="category-link">
+                                    <span>Artificial Intelligence</span>
+                                    <span class="category-count">14</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#" class="category-link">
+                                    <span>Cybersecurity</span>
+                                    <span class="category-count">8</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#" class="category-link">
+                                    <span>Web Development</span>
+                                    <span class="category-count">21</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#" class="category-link">
+                                    <span>Future Tech</span>
+                                    <span class="category-count">5</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#" class="category-link">
+                                    <span>Hardware & Gadgets</span>
+                                    <span class="category-count">12</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <!-- Newsletter Signup Widget -->
+                    <div class="widget rounded-xl shadow-lg newsletter-widget">
+                        <h3>Stay Updated</h3>
+                        <p
+                            style="
+                                color: #c7d2fe;
+                                margin-bottom: 1rem;
+                                font-size: 0.875rem;
+                            "
+                        >
+                            Get the latest tech news delivered straight to your
+                            inbox every week.
+                        </p>
+                        <form
+                            onsubmit="showMessage('Thank you for subscribing!'); return false;"
+                        >
+                            <input
+                                type="email"
+                                placeholder="Your Email Address"
+                                required
+                                class="newsletter-input"
+                            />
+                            <button type="submit" class="newsletter-button">
+                                Subscribe Now
+                            </button>
+                        </form>
+                    </div>
+
+                    <!-- Author/About Widget -->
+                    <div
+                        id="about-widget"
+                        class="widget rounded-xl shadow-md"
+                        style="text-align: center"
+                    >
+                        <img
+                            src="https://placehold.co/100x100/A5B4FC/374151?text=A"
+                            alt="Author Avatar"
+                            class="author-avatar"
+                        />
+                        <h3>About Tech Insights</h3>
+                        <p
+                            style="
+                                color: var(--light-text);
+                                font-size: 0.875rem;
+                            "
+                        >
+                            Founded by developers and driven by curiosity, Tech
+                            Insights is your source for deep dives into AI,
+                            Cybersecurity, and the future of decentralized
+                            computing. We break down complex topics into clear,
+                            actionable information.
+                        </p>
+                        <div
+                            style="
+                                display: flex;
+                                justify-content: center;
+                                gap: 1rem;
+                                margin-top: 1rem;
+                            "
+                        >
+                            <!-- Social icons (placeholders) -->
+                            <a href="#" style="color: var(--light-text)"
+                                ><svg
+                                    style="width: 1.25rem; height: 1.25rem"
+                                    fill="currentColor"
+                                    viewBox="0 0 24 24"
+                                    aria-hidden="true"
+                                >
+                                    <path
+                                        d="M18.9 4.2c.4 0 .7.3.7.7v.5c0 .3-.1.6-.4.7l-2.4.6c-.6.2-1.2.3-1.8.3s-1.2-.1-1.8-.3L10.3 6.1c-.3-.1-.5-.4-.5-.7V4.9c0-.4.3-.7.7-.7h1.4c.4 0 .7.3.7.7v.5c0 .2.1.3.3.4l2.4.6c.3.1.6 0 .7-.3V5c0-.4.3-.7.7-.7h1.4zM20.2 16.5c0-.4-.3-.7-.7-.7h-1.4c-.4 0-.7.3-.7.7v.5c0 .2-.1.3-.3.4l-2.4.6c-.6.2-1.2.3-1.8.3s-1.2-.1-1.8-.3l-2.4-.6c-.3-.1-.5-.4-.5-.7v-.5c0-.4-.3-.7-.7-.7H3.8c-.4 0-.7.3-.7.7v.5c0 .3.1.6.4.7l2.4.6c.6.2 1.2.3 1.8.3s1.2-.1 1.8-.3l2.4-.6c.3-.1.5-.4.5-.7v-.5c0-.4.3-.7.7-.7h1.4c.4 0 .7.3.7.7v.5c0 .3.1.6.4.7l2.4.6c.3.1.6 0 .7-.3v-.5c0-.4.3-.7.7-.7h1.4c.4 0 .7.3.7.7v.5c0 .3-.1.6-.4.7l-2.4.6c-.6.2-1.2.3-1.8.3s-1.2-.1-1.8-.3l-2.4-.6c-.3-.1-.5-.4-.5-.7v-.5c0-.4-.3-.7-.7-.7H3.8c-.4 0-.7.3-.7.7v.5c0 .3.1.6.4.7l2.4.6c.6.2 1.2.3 1.8.3s1.2-.1 1.8-.3l2.4-.6c.3-.1.5-.4.5-.7v-.5c0-.4.3-.7.7-.7h1.4c.4 0 .7.3.7.7v.5c0 .3.1.6.4.7l2.4.6c.3.1.6 0 .7-.3v-.5c0-.4.3-.7.7-.7h1.4c.4 0 .7.3.7.7v.5c0 .3-.1.6-.4.7l-2.4.6c-.6.2-1.2.3-1.8.3s-1.2-.1-1.8-.3l-2.4-.6c-.3-.1-.5-.4-.5-.7v-.5c0-.4-.3-.7-.7-.7H3.8c-.4 0-.7.3-.7.7v.5c0 .3.1.6.4.7l2.4.6c.6.2 1.2.3 1.8.3s1.2-.1 1.8-.3l2.4-.6c.3-.1.5-.4.5-.7v-.5c0-.4.3-.7.7-.7h1.4c.4 0 .7.3.7.7z"
+                                    /></svg
+                            ></a>
+                            <a href="#" style="color: var(--light-text)"
+                                ><svg
+                                    style="width: 1.25rem; height: 1.25rem"
+                                    fill="currentColor"
+                                    viewBox="0 0 24 24"
+                                    aria-hidden="true"
+                                >
+                                    <path
+                                        d="M20.2 21h-3.3v-5.2c0-1.3-.2-2.9-1.9-2.9-1.9 0-2.2 1.5-2.2 2.8v5.3h-3.3s.1-9.1 0-10h3.3v1.5c.5-.9 1.5-1.9 3.1-1.9 3.5 0 4.2 2.3 4.2 5.3v5.1zM7 9.8c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zM5.3 21h3.3V11h-3.3v10z"
+                                    /></svg
+                            ></a>
+                        </div>
+                    </div>
+                </aside>
+            </div>
+        </main>
+
+        <!-- Full Article View (Hidden by Default) -->
+        <section id="article-view" class="article-view container">
+            <a
+                href="#"
+                class="back-button"
+                onclick="showView('main-view'); return false;"
+                >&larr; Back to Blog Home</a
+            >
+            <div class="article-header">
+                <h1>
+                    The Rise of Quantum Computing in 2025: From Lab to Market
+                </h1>
+                <p class="article-meta">
+                    By Alex Chen | October 24, 2025 | Category: Future Tech
+                </p>
+                <img
+                    src="https://placehold.co/1000x500/4F46E5/ffffff?text=Detailed+Quantum+Circuit"
+                    alt="Detailed visualization of a quantum computer circuit"
+                />
+            </div>
+
+            <div class="article-body">
+                <p>
+                    Quantum computing, once confined to the esoteric corners of
+                    theoretical physics, is now accelerating toward commercial
+                    viability. The year 2025 marks a critical inflection point
+                    where 'qubits'—the quantum equivalent of classical bits—are
+                    transitioning from laboratory curiosities to practical,
+                    albeit still nascent, application platforms. This transition
+                    is not merely an engineering feat; it represents a
+                    fundamental shift in our ability to solve problems currently
+                    intractable for even the world's most powerful
+                    supercomputers.
+                </p>
+
+                <h2>Understanding the Quantum Leap</h2>
+                <p>
+                    The power of quantum computing lies in two core phenomena:
+                    **superposition** and **entanglement**. Superposition allows
+                    a qubit to represent both a $0$ and a $1$ simultaneously,
+                    exponentially increasing the potential computational space.
+                    Entanglement links the fates of two or more qubits, meaning
+                    the state of one instantly informs the state of the others,
+                    regardless of the physical distance between them. These
+                    principles enable quantum machines to process information in
+                    ways that classic computers cannot, making them ideal for
+                    tasks like materials science, drug discovery, and complex
+                    optimization problems.
+                </p>
+
+                <img
+                    src="https://placehold.co/1000x400/1F2937/ffffff?text=Superposition+%26+Entanglement+Diagram"
+                    alt="Diagram illustrating superposition and entanglement in qubits"
+                />
+
+                <h2>The Race for Quantum Supremacy</h2>
+                <p>
+                    Major technology firms and well-funded startups are locked
+                    in a fierce global competition to achieve genuine "quantum
+                    supremacy"—the point at which a quantum machine performs a
+                    calculation impossible for any classical computer in a
+                    reasonable timeframe. While the specific definition is
+                    debated, the commercial implications are clear. The first
+                    organizations to master scalable, fault-tolerant quantum
+                    computers will gain unprecedented advantages in fields like
+                    financial modeling and cryptography. The focus now is on
+                    developing more stable qubit technologies, moving beyond
+                    superconducting circuits to ion traps and photonics.
+                </p>
+
+                <p>
+                    However, challenges remain immense. Maintaining the fragile
+                    quantum state (coherence) requires near-absolute zero
+                    temperatures or highly controlled environments. Furthermore,
+                    quantum error correction remains one of the most significant
+                    hurdles to building truly useful, large-scale quantum
+                    computers. Despite these obstacles, ongoing research
+                    suggests that hybrid quantum-classical algorithms,
+                    leveraging existing cloud infrastructure, will provide the
+                    first wave of practical business value in the near term.
+                </p>
+
+                <h2>What This Means for Developers</h2>
+                <p>
+                    The development landscape is rapidly changing. While you
+                    don't need a quantum computer in your garage, learning
+                    frameworks like Qiskit (IBM) or Cirq (Google) is becoming a
+                    valuable skill for future-proofing your career. Quantum
+                    literacy will soon be essential for any engineer working in
+                    optimization, machine learning, or security.
+                </p>
+
+                <a
+                    href="#"
+                    class="back-button"
+                    onclick="showView('main-view'); return false;"
+                    >&larr; Back to Blog Home</a
+                >
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer>
+            <div class="container">
+                <a
+                    href="#"
+                    class="logo"
+                    onclick="showView('main-view'); return false;"
+                    style="font-size: 1.5rem; color: white"
+                    >TechInsights</a
+                >
+                <p
+                    style="
+                        font-size: 0.875rem;
+                        color: #9ca3af;
+                        margin-top: 1rem;
+                        margin-bottom: 1rem;
+                    "
+                >
+                    &copy; 2025 TechInsights. All rights reserved.
+                </p>
+                <div class="links">
+                    <a href="#">Privacy Policy</a>
+                    <a href="#">Terms of Use</a>
+                </div>
+            </div>
+        </footer>
+
+        <!-- Scroll to Top Button -->
+        <button
+            id="scrollToTop"
+            class="scroll-to-top"
+            onclick="topFunction()"
+            style="display: none"
+        >
+            <!-- Up Arrow SVG -->
+            <svg
+                style="width: 1.5rem; height: 1.5rem"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+                xmlns="http://www.w3.org/2000/svg"
+            >
+                <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M5 10l7-7m0 0l7 7m-7-7v18"
+                ></path>
+            </svg>
+        </button>
+
+        <!-- JavaScript for View Switching, Scrolling, and Alerts -->
+        <script>
+            // Global references for the main views
+            const mainView = document.getElementById("main-view");
+            const articleView = document.getElementById("article-view");
+            const scrollButton = document.getElementById("scrollToTop");
+
+            /**
+             * Simulates page navigation by switching the visibility of main content vs. article content.
+             * @param {string} viewId - The ID of the view to show ('main-view' or 'article-view').
+             */
+            function showView(viewId) {
+                if (viewId === "article-view") {
+                    mainView.style.display = "none";
+                    articleView.style.display = "block";
+                    window.scrollTo({ top: 0, behavior: "smooth" }); // Scroll to top on "page" switch
+                } else {
+                    articleView.style.display = "none";
+                    mainView.style.display = "block";
+                    window.scrollTo({ top: 0, behavior: "smooth" }); // Scroll to top on "page" switch
+                }
+            }
+
+            /**
+             * Smoothly scrolls to a specific element ID.
+             * @param {string} targetId - The ID of the element to scroll to.
+             */
+            function smoothScrollTo(targetId) {
+                // Ensure we are on the main view before scrolling
+                showView("main-view");
+
+                const targetElement = document.getElementById(targetId);
+                if (targetElement) {
+                    targetElement.scrollIntoView({
+                        behavior: "smooth",
+                        block: "start",
+                    });
+                }
+            }
+
+            // --- Scroll to Top Logic ---
+            window.onscroll = function () {
+                if (
+                    document.body.scrollTop > 300 ||
+                    document.documentElement.scrollTop > 300
+                ) {
+                    scrollButton.style.display = "block";
+                } else {
+                    scrollButton.style.display = "none";
+                }
+            };
+
+            function topFunction() {
+                window.scrollTo({ top: 0, behavior: "smooth" });
+            }
+
+            // --- Custom Alert/Message Box (Replaces alert()) ---
+            function showMessage(message) {
+                // Simple approach: temporarily display message in a fixed notification bar
+                const existingNotification =
+                    document.getElementById("temp-notification");
+                if (existingNotification) existingNotification.remove();
+
+                const notification = document.createElement("div");
+                notification.id = "temp-notification";
+                notification.textContent = message;
+                notification.style.cssText = `
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                background-color: #10B981; /* Green 500 */
+                color: white;
+                padding: 15px 25px;
+                border-radius: 8px;
+                z-index: 1000;
+                opacity: 0;
+                transition: opacity 0.5s, transform 0.5s;
+                transform: translateY(-20px);
+                font-family: 'Inter', sans-serif;
+                box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            `;
+                document.body.appendChild(notification);
+
+                // Animate in
+                setTimeout(() => {
+                    notification.style.opacity = "1";
+                    notification.style.transform = "translateY(0)";
+                }, 50);
+
+                // Animate out and remove
+                setTimeout(() => {
+                    notification.style.opacity = "0";
+                    notification.style.transform = "translateY(-20px)";
+                    setTimeout(() => notification.remove(), 500);
+                }, 4000);
+            }
+        </script>
+    </body>
+</html>
